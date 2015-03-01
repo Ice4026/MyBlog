@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.action.extension" value=","/>
+
+    <package name="default" namespace="/" extends="struts-default">
+
+        <default-action-ref name="index"/>
+
+        <global-results>
+            <result name="error" type="redirectAction">index</result>
+        </global-results>
+
+        <!-- <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings> -->
+
+        <action name="index" class="com.myblog.action.indexAction">
+            <result>/index.jsp</result>
+            <result name="debug">/debug.jsp</result>
+        </action>
+        
+        
+        <action name="detail" class="com.myblog.action.detailAction">
+            <result>/detail.jsp</result>
+        </action>
+        
+        <action name="comment" class="com.myblog.action.commentAction">
+            <result>/templates/comment_list.jsp</result>
+        </action>
+    </package>
+    
+    <package name="admin" namespace="/admin" extends="struts-default">
+    	<global-results>
+            <result name="input" type="redirectAction">
+	            <param name="namespace">/</param>
+	            <param name="actionName">index</param>
+        	</result>
+        </global-results>
+        
+		<action name="writer_*" class="com.myblog.action.writerAction" method="{1}Blog">
+            <result name="success">blogwriter.jsp</result>
+        </action>
+        <action name="blog_*" class="com.myblog.action.blogAction" method="{1}Blog">
+            <result name="success" type="redirectAction">
+	            <param name="namespace">/</param>
+	            <param name="actionName">index</param>
+        	</result>
+        </action>
+	</package>
+    
+	<package name="jsonPackage" namespace="/validate" extends="json-default">
+		<action name="loginValidate" class="com.myblog.action.loginAction">
+        	<result type="json" name="success"/>
+        	<result type="json" name="error"/>
+        </action>
+        <action name="logoutValidate" class="com.myblog.action.loginAction" method="logout">
+        	<result name="success" type="redirectAction">
+	            <param name="namespace">/</param>
+	            <param name="actionName">index</param>
+        	</result>
+        </action>
+	</package>
+	
+	<package name="testPackage" namespace="/test" extends="struts-default">
+		<action name="test">
+        	<result>test-editor.jsp</result>
+        </action>
+	</package>
+    <!-- Add packages here -->
+
+</struts>
