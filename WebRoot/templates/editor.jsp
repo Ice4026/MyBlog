@@ -30,7 +30,7 @@
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown" id="categoryBtn" value="">
-							<s:if test="newOrNot==0">Category</s:if>
+							<s:if test="newOrNot==0"><s:property value="categories[0].name"/></s:if>
 							<s:else>
 								<s:property value="blog.category.name" />
 								<s:if test="blog.category.privacy==0"><span class="glyphicon glyphicon-euro"></span></s:if>
@@ -50,6 +50,7 @@
 						<input type="hidden" name="category_id" id="category_id"
 							value="
 								<s:if test="newOrNot==1"><s:property value="blog.category.id"/></s:if>
+								<s:else><s:property value="categories[0].id"/></s:else>
 							">
 						<input type="hidden" name="blog_id" id="blog_id"
 							value="<s:property value="blog.id"/>">
