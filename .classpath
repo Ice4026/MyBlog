@@ -25,6 +25,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyJUnit4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Struts-2.3.16.3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/c3p0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/UEditor"/>
 	<classpathentry kind="lib" path="D:/MySQL/Connector J 5.1.28/mysql-connector-java-5.1.28-bin.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
