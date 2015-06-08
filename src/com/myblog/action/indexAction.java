@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.myblog.dao.BlogDAO;
+import com.myblog.dao.CommentDAO;
 import com.myblog.dao.impl.BlogDAOImpl;
+import com.myblog.dao.impl.CommentDAOImpl;
 import com.myblog.model.Blog;
+import com.myblog.model.Comment;
 import com.myblog.util.ValidateUtil;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -14,11 +17,13 @@ public class indexAction extends baseAction {
 	private static final long serialVersionUID = 4641958181461573821L;
 	// 公共字段
 	private List<Blog> blogs = new ArrayList<Blog>();
+	private List<Comment> comments = new ArrayList<Comment>();
 	private int page = 1;
 	private List<Integer> pageNav = new ArrayList<Integer>();
 	// 私有字段
 	private int maxRet = 10;
 	private BlogDAO d_blog = new BlogDAOImpl();
+	private CommentDAO d_comment = new CommentDAOImpl();
 	private Map<String, Object> session;
 	private boolean isLogin = false;
 	private long count = 0;
@@ -63,6 +68,13 @@ public class indexAction extends baseAction {
 		this.blogs = blogs;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 	/*
 	 * 生成长度为7的pageNav，用来配置分页导航条 0和6标识前进和后退按钮，值为-1则禁用该按钮
 	 */
@@ -112,15 +124,25 @@ public class indexAction extends baseAction {
 			blogs = d_blog.pagedList((page - 1) * maxRet, maxRet, 1);
 	}
 
+	private void generateCommentList() throws Exception {
+		if(isLogin)
+			setComments(d_comment.pagedList(0, 5, 2));
+		else
+			setComments(d_comment.pagedList(0, 5, 1));
+	}
+	
 	public String execute() {
 		try {
 			generateBlogList();
 			generatePageNav();
+			generateCommentList();
 
 			return SUCCESS;
 		} catch (Exception e) {
 			return "debug";
 		}
 	}
+
+	
 
 }

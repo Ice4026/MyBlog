@@ -66,8 +66,10 @@ public class CommentDAOImpl implements CommentDAO {
 			session.beginTransaction();
 			Comment comment = (Comment) session.get(Comment.class, id);
 
-			/*Blog blog = comment.getBlog();
-			blog.getComments().remove(comment);*/
+			/*
+			 * Blog blog = comment.getBlog();
+			 * blog.getComments().remove(comment);
+			 */
 			comment.setBlog(null);
 
 			session.delete(comment);
@@ -108,7 +110,33 @@ public class CommentDAOImpl implements CommentDAO {
 		try {
 			session.beginTransaction();
 			String hql = "from Comment as comment where comment.blog.id=:blog_id order by comment.time desc";
-			Query query = session.createQuery(hql).setParameter("blog_id", blog_id);
+			Query query = session.createQuery(hql).setParameter("blog_id",
+					blog_id);
+			List<Comment> list = query.list();
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public List<Comment> pagedList(int firstRet, int maxRet, int privacy)
+			throws Exception {
+		Session session = util.getCurrentSession();
+
+		try {
+			session.beginTransaction();
+			String hql = "from Comment as comment";
+			if (privacy == 0)
+				hql += " where comment.blog.category.privacy=0";
+			else if (privacy == 1)
+				hql += " where comment.blog.category.privacy=1";
+			hql += " order by blog.publish_time desc";
+			Query query = session.createQuery(hql);
+			query.setFirstResult(firstRet);
+			query.setMaxResults(maxRet);
 			List<Comment> list = query.list();
 			session.getTransaction().commit();
 			return list;

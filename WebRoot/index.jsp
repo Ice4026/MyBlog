@@ -36,12 +36,12 @@
 				<%@ include file="templates/about.jsp"%>
 				<%-- End --%>
 
+				<%-- Latest_Commnet Begin --%>
+				<%@ include file="templates/latest_comment.jsp"%>
+				<%-- End --%>
+				
 				<%-- Archives Begin --%>
 				<%@ include file="templates/archives.jsp"%>
-				<%-- End --%>
-
-				<%-- Elsewhere Begin --%>
-				<%@ include file="templates/elsewhere.jsp"%>
 				<%-- End --%>
 			</div>
 			<!-- /.blog-sidebar -->

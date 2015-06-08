@@ -22,7 +22,8 @@
 	<div class="container">
 
 		<div class="row">
-		<br><br>
+			<br>
+			<br>
 		</div>
 		<!-- <div class="blog-header">
 			<h1 class="blog-title">Ice's Blog</h1>
@@ -44,13 +45,14 @@
 				<%@ include file="templates/about.jsp"%>
 				<%-- End --%>
 
+				<%-- Latest_Comment Begin --%>
+				<%@ include file="templates/latest_comment.jsp"%>
+				<%-- End --%>
+
 				<%-- Archives Begin --%>
 				<%@ include file="templates/archives.jsp"%>
 				<%-- End --%>
 
-				<%-- Elsewhere Begin --%>
-				<%@ include file="templates/elsewhere.jsp"%>
-				<%-- End --%>
 			</div>
 			<!-- /.blog-sidebar -->
 
@@ -63,6 +65,6 @@
 	<%-- Footer Begin --%>
 	<%@ include file="templates/footer.jsp"%>
 	<%-- End --%>
-	
+
 </body>
 </html>
